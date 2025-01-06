@@ -20,4 +20,4 @@ command: |-
   pip3 install -e ".[torch,metrics,deepspeed,liger-kernel,bitsandbytes,flash-attn,auto-gptq]"
   wandb login
   huggingface-cli login --token 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
-  accelerate launch --num_processes 8 --num_machines 1 src/train.py examples/train_full/llama3_full_sft.yaml
+  accelerate launch --num_processes 8 --num_machines 1 src/train.py examples/train_full/llama3vision_full_sft.yaml

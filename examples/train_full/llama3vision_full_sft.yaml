@@ -41,11 +41,6 @@ per_device_eval_batch_size: 1
 eval_strategy: steps
 eval_steps: 500
 
-### efficiency
-enable_liger_kernel: true
-use_unsloth_gc: true
-optim: paged_adamw_8bit
-
 ### logging
 report_to: wandb
 run_name: llama3vision-11b-full-sft
