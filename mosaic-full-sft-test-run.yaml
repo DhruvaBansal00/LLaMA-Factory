@@ -19,8 +19,5 @@ command: |-
   pip3 install ninja packaging
   pip3 install -e ".[torch,metrics,deepspeed,liger-kernel,bitsandbytes,flash-attn,auto-gptq]"
   wandb login
-
-  FORCE_TORCHRUN=1 NNODES=4 NODE_RANK=0 MASTER_ADDR=$MASTER_ADDR MASTER_PORT=$MASTER_PORT llamafactory-cli train examples/train_full/llama3vision_full_sft.yaml
-  FORCE_TORCHRUN=1 NNODES=4 NODE_RANK=1 MASTER_ADDR=$MASTER_ADDR MASTER_PORT=$MASTER_PORT llamafactory-cli train examples/train_full/llama3vision_full_sft.yaml
-  FORCE_TORCHRUN=1 NNODES=4 NODE_RANK=2 MASTER_ADDR=$MASTER_ADDR MASTER_PORT=$MASTER_PORT llamafactory-cli train examples/train_full/llama3vision_full_sft.yaml
-  FORCE_TORCHRUN=1 NNODES=4 NODE_RANK=3 MASTER_ADDR=$MASTER_ADDR MASTER_PORT=$MASTER_PORT llamafactory-cli train examples/train_full/llama3vision_full_sft.yaml
+  huggingface-cli login --token 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 --add-to-git-credential
+  accelerate launch --num_processes 32 --num_machines 4 --machine_rank $NODE_RANK --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT src/train.py examples/train_full/llama3vision_full_sft.yaml
