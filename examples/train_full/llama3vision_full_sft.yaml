@@ -44,3 +44,4 @@ eval_steps: 500
 ### logging
 report_to: wandb
 run_name: llama3vision-11b-full-sft
+use_unsloth_gc: true
