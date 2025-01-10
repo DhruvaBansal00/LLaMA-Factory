@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: Qwen/Qwen2-VL-7B-Instruct
+model_name_or_path: /model-weights/72B
 trust_remote_code: true
 
 ### method
@@ -19,7 +19,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/qwen2_vl-7b/full/sft
+output_dir: saves/qwen2_vl-72b/full/sft
 logging_steps: 10
 save_steps: 500
 plot_loss: true
@@ -46,4 +46,4 @@ eval_steps: 500
 
 ### logging
 report_to: wandb
-run_name: qwen2vl-7b-full-sft-2
+run_name: qwen2vl-72b-full-sft-1
