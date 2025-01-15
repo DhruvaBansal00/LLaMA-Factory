@@ -9,6 +9,11 @@ finetuning_type: full
 freeze_vision_tower: true  # choices: [true, false]
 train_mm_proj_only: false  # choices: [true, false]
 deepspeed: examples/deepspeed/ds_z3_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+use_badam: true
+badam_mode: layer
+badam_switch_mode: ascending
+badam_switch_interval: 50
+badam_verbose: 2
 
 ### dataset
 dataset: mllm_demo,identity,alpaca_en_demo,slimorca
