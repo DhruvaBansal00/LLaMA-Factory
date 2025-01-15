@@ -1,9 +1,9 @@
 name: axolotl-vision-test-run
 image: mosaicml/pytorch:2.3.1_cu121-python3.11-ubuntu20.04
 compute:
-  gpus: 8
-  cluster: r7z24p1
-  gpu_type: a100_80gb
+  gpus: 64
+  cluster: r15z1p1
+  gpu_type: h100_80gb
 integrations:
 - integration_type: git_repo
   git_repo: DhruvaBansal00/LLaMA-Factory
@@ -23,4 +23,4 @@ command: |-
   pip3 install -e ".[torch,metrics,deepspeed,liger-kernel,bitsandbytes,flash-attn,auto-gptq,adam-mini,badam]"
   wandb login
   huggingface-cli login --token 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
-  accelerate launch src/train.py examples/train_full/qwen2vl_long_cntxt.yaml
+  accelerate launch --num_processes 64 --num_machines 8 --machine_rank $NODE_RANK --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT src/train.py examples/train_full/qwen2vl_long_cntxt.yaml
