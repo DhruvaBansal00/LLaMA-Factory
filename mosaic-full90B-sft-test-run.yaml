@@ -1,0 +1,26 @@
+name: axolotl-vision-test-run
+image: mosaicml/pytorch:2.3.1_cu121-python3.11-ubuntu20.04
+compute:
+  gpus: 32
+  cluster: r7z24p1
+  gpu_type: a100_80gb
+integrations:
+- integration_type: git_repo
+  git_repo: DhruvaBansal00/LLaMA-Factory
+  ssh_clone: true
+  git_branch: main
+- integration_type: pip_packages
+  packages:
+  - wandb
+command: |-
+  unset WORLD_SIZE
+  export WANDB_INIT_TIMEOUT=180
+  pip3 install awscli
+  mkdir -p /model-weights/90B
+  aws s3 sync "s3://refuel-scratch-space/llama3/90B/" /model-weights/90B
+  cd LLaMA-Factory
+  pip3 install ninja packaging
+  pip3 install -e ".[torch,metrics,deepspeed,liger-kernel,bitsandbytes,flash-attn,auto-gptq]"
+  wandb login
+  huggingface-cli login --token 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
+  accelerate launch --num_processes 32 --num_machines 4 --machine_rank $NODE_RANK --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT src/train.py examples/train_full/llama3vision_full_sft_90b.yaml
