@@ -9,12 +9,11 @@ finetuning_type: full
 freeze_vision_tower: true  # choices: [true, false]
 train_mm_proj_only: false  # choices: [true, false]
 deepspeed: examples/deepspeed/ds_z3_offload_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
-use_apollo: true
-apollo_layerwise: true  # choices: [true, false], use false for DDP training
-apollo_target: all
-apollo_rank: 128
-apollo_scale: 32.0
-apollo_scale_type: channel
+use_badam: true
+badam_mode: layer
+badam_switch_mode: random
+badam_switch_interval: 100
+badam_verbose: 2
 
 ### dataset
 dataset: mllm_demo,identity,alpaca_en_demo,slimorca
@@ -41,7 +40,7 @@ warmup_ratio: 0.1
 bf16: true
 ddp_timeout: 180000000
 neat_packing: true
-enable_liger_kernel: false
+enable_liger_kernel: true
 flash_attn: fa2
 
 ### eval
