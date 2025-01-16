@@ -1,7 +1,7 @@
 name: axolotl-vision-test-run
 image: mosaicml/pytorch:2.3.1_cu121-python3.11-ubuntu20.04
 compute:
-  gpus: 64
+  gpus: 32
   cluster: r15z1p1
   gpu_type: h100_80gb
 integrations:
