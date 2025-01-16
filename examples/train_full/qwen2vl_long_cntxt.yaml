@@ -14,7 +14,7 @@ badam_mode: layer
 badam_switch_mode: random
 badam_switch_interval: 100
 badam_verbose: 2
-rope_scaling: linear
+
 ### dataset
 dataset: mllm_demo,identity,alpaca_en_demo,slimorca
 template: qwen2_vl
