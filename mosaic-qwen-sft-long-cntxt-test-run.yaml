@@ -23,4 +23,4 @@ command: |-
   pip3 install -e ".[torch,metrics,deepspeed,liger-kernel,bitsandbytes,flash-attn,auto-gptq,adam-mini,badam]"
   wandb login
   huggingface-cli login --token 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
-  accelerate launch --num_processes 56 --num_machines 7 --machine_rank $NODE_RANK --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT src/train.py examples/train_full/qwen2vl_long_cntxt.yaml
+  accelerate launch src/train.py examples/train_full/qwen2vl_long_cntxt.yaml
