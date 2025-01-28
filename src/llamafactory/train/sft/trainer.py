@@ -230,12 +230,12 @@ class CustomSeq2SeqTrainer(Seq2SeqTrainer):
         # assert unwrap_model(model) is self.model, "internal model should be a reference to self.model"
 
         # Save model checkpoint
-        checkpoint_folder = f"checkpoint-{self.state.global_step}"
 
         if self.hp_search_backend is None and trial is None:
             self.store_flos()
 
         run_dir = self._get_output_dir(trial=trial)
+        checkpoint_folder = f"checkpoint-{self.state.global_step}"
         output_dir = os.path.join(run_dir, checkpoint_folder)
         self.save_model(output_dir, _internal_call=True)
 
@@ -250,7 +250,7 @@ class CustomSeq2SeqTrainer(Seq2SeqTrainer):
             for file in files:
                 local_path = os.path.join(root, file)
                 relative_path = os.path.relpath(local_path, output_dir)
-                s3_path = os.path.join(os.path.basename(output_dir), relative_path)
+                s3_path = os.path.join(output_dir, relative_path)
                 # Upload file to S3
                 self.s3_client.upload_file(
                     local_path,
